@@ -386,19 +386,19 @@ st.markdown("""
   <div style="display:inline-flex; align-items:center; gap:7px;
        background:#fff; border:1.5px solid #e5e7eb; border-radius:99px;
        padding:6px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-    <span style="font-size:0.9rem;">🧠</span>
+    <span style="font-size:0.9rem;"></span>
     <span style="font-size:0.78rem; font-weight:600; color:#374151;">AI-Powered Insights</span>
   </div>
   <div style="display:inline-flex; align-items:center; gap:7px;
        background:#fff; border:1.5px solid #e5e7eb; border-radius:99px;
        padding:6px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-    <span style="font-size:0.9rem;">⚡</span>
+    <span style="font-size:0.9rem;"></span>
     <span style="font-size:0.78rem; font-weight:600; color:#374151;">Instant Analysis</span>
   </div>
   <div style="display:inline-flex; align-items:center; gap:7px;
        background:#fff; border:1.5px solid #e5e7eb; border-radius:99px;
        padding:6px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-    <span style="font-size:0.9rem;">🎯</span>
+    <span style="font-size:0.9rem;"></span>
     <span style="font-size:0.78rem; font-weight:600; color:#374151;">ATS Optimised</span>
   </div>
   <div style="display:inline-flex; align-items:center; gap:7px;
@@ -517,7 +517,7 @@ with tab1:
             <div style="display:flex; align-items:center; gap:10px;">
               <div style="width:34px; height:34px; border-radius:10px;
                    background:linear-gradient(135deg,#ede9fe,#ddd6fe);
-                   display:flex; align-items:center; justify-content:center; font-size:1rem;">📋</div>
+                   display:flex; align-items:center; justify-content:center; font-size:1rem;"></div>
               <span style="font-size:0.72rem; font-weight:800; color:#1e1b4b;
                     letter-spacing:1.5px; text-transform:uppercase;">STEP 1 — JOB DESCRIPTION</span>
             </div>
@@ -544,7 +544,7 @@ with tab1:
           <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
             <div style="width:34px; height:34px; border-radius:10px;
                  background:linear-gradient(135deg,#e0f2fe,#bae6fd);
-                 display:flex; align-items:center; justify-content:center; font-size:1rem;">📄</div>
+                 display:flex; align-items:center; justify-content:center; font-size:1rem;"></div>
             <span style="font-size:0.72rem; font-weight:800; color:#1e1b4b;
                   letter-spacing:1.5px; text-transform:uppercase;">STEP 2 — YOUR RESUME</span>
           </div>
@@ -559,7 +559,7 @@ with tab1:
     # Centered scan button
     _, btn_col, _ = st.columns([2, 2, 2])
     with btn_col:
-        analyze = st.button("🔍   Scan Resume", use_container_width=True)
+        analyze = st.button("   Scan Resume", use_container_width=True)
 
     # ── RESULTS ──────────────────────────────────────────
     if analyze:
@@ -586,17 +586,17 @@ with tab1:
                 ring_bg = "linear-gradient(135deg,#10b981,#34d399)"
                 ring_sh = "rgba(16,185,129,0.4)"
                 ban_bg  = "#ecfdf5"; ban_bd = "#6ee7b7"; ban_txt = "#065f46"
-                verdict = "🎉 Great work! Your resume is well-optimised."
+                verdict = "Great work! Your resume is well-optimised."
             elif overall >= 50:
                 ring_bg = "linear-gradient(135deg,#f59e0b,#fbbf24)"
                 ring_sh = "rgba(245,158,11,0.4)"
                 ban_bg  = "#fffbeb"; ban_bd = "#fde68a"; ban_txt = "#92400e"
-                verdict = "⚡ Good start — a few tweaks and you'll be interview-ready."
+                verdict = "Good start — a few tweaks and you'll be interview-ready."
             else:
                 ring_bg = "linear-gradient(135deg,#ef4444,#f87171)"
                 ring_sh = "rgba(239,68,68,0.4)"
                 ban_bg  = "#fff1f2"; ban_bd = "#fca5a5"; ban_txt = "#991b1b"
-                verdict = "📋 Needs work — follow the recommendations below."
+                verdict = "Needs work — follow the recommendations below."
 
             st.markdown(f"""
             <div class="fade-up" style="background:{ban_bg}; border:2px solid {ban_bd};
@@ -727,7 +727,7 @@ with tab1:
                 <div style="width:30px; height:30px; border-radius:9px;
                      background:linear-gradient(135deg,#6366f1,#8b5cf6);
                      display:flex; align-items:center; justify-content:center;
-                     font-size:0.85rem;">✨</div>
+                     font-size:0.85rem;"></div>
                 <span style="font-weight:700; font-size:0.88rem; color:#1e1b4b;
                       -webkit-text-fill-color:#1e1b4b;">Gemini AI Suggestions</span>
               </div>
@@ -824,8 +824,8 @@ Education
             d1, d2 = st.columns(2)
             with d1:
                 with open("resume.docx","rb") as f:
-                    st.download_button("📄  Download DOCX", f, "resume.docx",
+                    st.download_button("  Download DOCX", f, "resume.docx",
                         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
             with d2:
                 with open(pdf_file,"rb") as f:
-                    st.download_button("📑  Download PDF", f, "resume.pdf", mime="application/pdf")
+                    st.download_button("  Download PDF", f, "resume.pdf", mime="application/pdf")
