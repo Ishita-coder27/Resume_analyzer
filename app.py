@@ -329,48 +329,49 @@ with tabs[0]:
     jd = st.text_area("Job Description")
     uploaded_file = st.file_uploader("Upload Resume", type=["pdf"])
 
-    analyze = st.button("Analyze")
+   analyze = st.button("Analyze")
 
 if analyze:
 
-    # -------- VALIDATION --------
-    if uploaded_file is None:
-        st.warning("Please upload your resume.")
-        st.stop()
+    try:
+        if uploaded_file is None:
+            st.warning("Please upload resume")
+            st.stop()
 
-    if jd.strip() == "":
-        st.warning("Please paste the job description.")
-        st.stop()
+        if jd.strip() == "":
+            st.warning("Paste job description")
+            st.stop()
 
-    # -------- PROCESS --------
-    with st.spinner("Analyzing..."):
+        with st.spinner("Analyzing..."):
 
-        text = extract_pdf_text(uploaded_file)
+            text = extract_pdf_text(uploaded_file)
 
-        res_skills = extract_keywords(text)
-        jd_skills = extract_keywords(jd)
+            if not text or len(text.strip()) < 50:
+                st.error("Could not extract text from PDF")
+                st.stop()
 
-        match, missing = calculate_match(res_skills, jd_skills)
-        ats_score, issues = ats_check(text, jd)
+            res_skills = extract_keywords(text)
+            jd_skills = extract_keywords(jd)
 
-        try:
+            match, missing = calculate_match(res_skills, jd_skills)
+            ats_score, issues = ats_check(text, jd)
+
             feedback = ai_feedback(text)
-        except Exception as e:
-            feedback = f"Error generating feedback: {str(e)}"
 
-    # -------- OUTPUT --------
-    col1, col2 = st.columns(2)
+        col1, col2 = st.columns(2)
+        col1.metric("ATS Score", ats_score)
+        col2.metric("Match Score", f"{match}%")
 
-    col1.metric("ATS Score", ats_score)
-    col2.metric("Match Score", f"{match}%")
+        st.subheader("Feedback")
+        st.write(feedback)
 
-    st.subheader("Feedback")
-    st.write(feedback)
+        if issues:
+            st.subheader("Issues Found")
+            for i in issues:
+                st.write("-", i)
 
-    if issues:
-        st.subheader("Issues Found")
-        for i in issues:
-            st.write("-", i)
+    except Exception as e:
+        st.error(f"App crashed: {str(e)}")
 #  BUILDER 
 
 with tabs[1]:
