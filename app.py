@@ -344,15 +344,19 @@ textarea::placeholder, input::placeholder {
 # ─── HEADER ──────────────────────────────────────────────────────────────────
 
 st.markdown("""
-<div style="margin-bottom: 0.25rem;">
+<div style="margin-bottom: 0.5rem;">
     <span style="font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:600;
           color:#6366f1; letter-spacing:2px; text-transform:uppercase;">
         RESUME CHECKER + BUILDER
     </span>
 </div>
+<div style="margin-bottom: 0.25rem;">
+    <span style="font-family:'Inter',sans-serif; font-size:2.8rem; font-weight:800;
+          color:#1a1a2e; letter-spacing:-1.5px; line-height:1.1; display:block;">
+        Acadence Resume Lab
+    </span>
+</div>
 """, unsafe_allow_html=True)
-
-st.title("Get expert feedback on your resume, instantly.")
 
 st.markdown("""
 <p style="font-family:'Inter',sans-serif; font-size:1rem; color:#6b7280;
@@ -730,9 +734,9 @@ with tabs[1]:
 
     col_a, col_b, col_c = st.columns(3)
     with col_a:
-        name = st.text_input("Full Name", placeholder="Jane Smith")
+        name = st.text_input("Full Name", placeholder="Ishita")
     with col_b:
-        email = st.text_input("Email", placeholder="jane@email.com")
+        email = st.text_input("Email", placeholder="ishita@email.com")
     with col_c:
         phone = st.text_input("Phone", placeholder="+1 234 567 8900")
 
@@ -806,14 +810,4 @@ Education
                     mime="application/pdf"
                 )
 
-# ─── FOOTER ───────────────────────────────────────────────────────────────────
 
-st.markdown("""
-<div style="text-align:center; margin-top:3rem; padding-top:1.5rem;
-     border-top:1px solid #e5e7eb;">
-    <p style="font-family:'Inter',sans-serif; font-size:0.75rem; color:#9ca3af;
-       -webkit-text-fill-color:#9ca3af; margin:0;">
-        Acadence Resume Lab — Powered by Gemini AI
-    </p>
-</div>
-""", unsafe_allow_html=True)
