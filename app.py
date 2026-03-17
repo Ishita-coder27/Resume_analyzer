@@ -299,8 +299,13 @@ def ats_check(resume_text, jd):
 
 
 def ai_feedback(resume_text):
-    response = MODEL.generate_content(f"Improve this resume:\n{resume_text[:3000]}")
-    return response.text
+    try:
+        response = MODEL.generate_content(
+            f"Improve this resume:\n{resume_text[:2000]}"
+        )
+        return response.text
+    except Exception as e:
+        return f"Gemini Error: {str(e)}"
 
 
 def export_pdf(content):
@@ -321,6 +326,7 @@ st.title("Acadence Resume Lab")
 tabs = st.tabs(["Analyzer", "Builder"])
 
 # ANALYZER 
+# ---------------- ANALYZER ----------------
 
 with tabs[0]:
 
@@ -329,49 +335,50 @@ with tabs[0]:
     jd = st.text_area("Job Description")
     uploaded_file = st.file_uploader("Upload Resume", type=["pdf"])
 
-   analyze = st.button("Analyze")
+    analyze = st.button("Analyze")
 
-if analyze:
+    if analyze:
 
-    try:
-        if uploaded_file is None:
-            st.warning("Please upload resume")
-            st.stop()
-
-        if jd.strip() == "":
-            st.warning("Paste job description")
-            st.stop()
-
-        with st.spinner("Analyzing..."):
-
-            text = extract_pdf_text(uploaded_file)
-
-            if not text or len(text.strip()) < 50:
-                st.error("Could not extract text from PDF")
+        try:
+            if uploaded_file is None:
+                st.warning("Please upload resume")
                 st.stop()
 
-            res_skills = extract_keywords(text)
-            jd_skills = extract_keywords(jd)
+            if jd.strip() == "":
+                st.warning("Paste job description")
+                st.stop()
 
-            match, missing = calculate_match(res_skills, jd_skills)
-            ats_score, issues = ats_check(text, jd)
+            with st.spinner("Analyzing..."):
 
-            feedback = ai_feedback(text)
+                text = extract_pdf_text(uploaded_file)
 
-        col1, col2 = st.columns(2)
-        col1.metric("ATS Score", ats_score)
-        col2.metric("Match Score", f"{match}%")
+                if not text or len(text.strip()) < 50:
+                    st.error("Could not extract text from PDF")
+                    st.stop()
 
-        st.subheader("Feedback")
-        st.write(feedback)
+                res_skills = extract_keywords(text)
+                jd_skills = extract_keywords(jd)
 
-        if issues:
-            st.subheader("Issues Found")
-            for i in issues:
-                st.write("-", i)
+                match, missing = calculate_match(res_skills, jd_skills)
+                ats_score, issues = ats_check(text, jd)
 
-    except Exception as e:
-        st.error(f"App crashed: {str(e)}")
+                feedback = ai_feedback(text)
+
+            col1, col2 = st.columns(2)
+            col1.metric("ATS Score", ats_score)
+            col2.metric("Match Score", f"{match}%")
+
+            st.subheader("Feedback")
+            st.write(feedback)
+
+            if issues:
+                st.subheader("Issues Found")
+                for i in issues:
+                    st.write("-", i)
+
+        except Exception as e:
+            st.error(f"App crashed: {str(e)}")
+
 #  BUILDER 
 
 with tabs[1]:
