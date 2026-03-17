@@ -329,35 +329,48 @@ with tabs[0]:
     jd = st.text_area("Job Description")
     uploaded_file = st.file_uploader("Upload Resume", type=["pdf"])
 
-    if st.button("Analyze"):
+    analyze = st.button("Analyze")
 
-        if uploaded_file and jd:
+if analyze:
 
-            text = extract_pdf_text(uploaded_file)
+    # -------- VALIDATION --------
+    if uploaded_file is None:
+        st.warning("Please upload your resume.")
+        st.stop()
 
-            res_skills = extract_keywords(text)
-            jd_skills = extract_keywords(jd)
+    if jd.strip() == "":
+        st.warning("Please paste the job description.")
+        st.stop()
 
-            match, missing = calculate_match(res_skills, jd_skills)
-            ats_score, issues = ats_check(text, jd)
+    # -------- PROCESS --------
+    with st.spinner("Analyzing..."):
 
+        text = extract_pdf_text(uploaded_file)
+
+        res_skills = extract_keywords(text)
+        jd_skills = extract_keywords(jd)
+
+        match, missing = calculate_match(res_skills, jd_skills)
+        ats_score, issues = ats_check(text, jd)
+
+        try:
             feedback = ai_feedback(text)
+        except Exception as e:
+            feedback = f"Error generating feedback: {str(e)}"
 
-            col1, col2 = st.columns(2)
-            with col1:
-                st.metric("ATS Score", ats_score)
-            with col2:
-                st.metric("Match Score", f"{match}%")
+    # -------- OUTPUT --------
+    col1, col2 = st.columns(2)
 
-            st.subheader("Feedback")
-            st.write(feedback)
+    col1.metric("ATS Score", ats_score)
+    col2.metric("Match Score", f"{match}%")
 
-            if issues:
-                st.subheader("Issues Found")
-                for i in issues:
-                    st.write("-", i)
+    st.subheader("Feedback")
+    st.write(feedback)
 
-
+    if issues:
+        st.subheader("Issues Found")
+        for i in issues:
+            st.write("-", i)
 #  BUILDER 
 
 with tabs[1]:
