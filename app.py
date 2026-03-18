@@ -301,14 +301,7 @@ textarea::placeholder, input::placeholder {
 #  HEADER
 # ══════════════════════════════════════════════════════════
 
-st.markdown("""
-<div style="margin-bottom:0.3rem;">
-  <span style="font-size:0.65rem; font-weight:700; letter-spacing:3px;
-        text-transform:uppercase; color:#6366f1;">
-    AI POWERED &nbsp;·&nbsp; FREE &nbsp;·&nbsp; INSTANT RESULTS
-  </span>
-</div>
-""", unsafe_allow_html=True)
+
 
 st.markdown("""
 <h1 style="font-size:2.8rem; font-weight:900; color:#f8fafc;
